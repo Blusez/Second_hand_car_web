@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keller.dao.CarBrandMapper" >
+  <resultMap id="BaseResultMap" type="com.keller.model.CarBrand" >
+    <id column="b_id" property="bId" jdbcType="INTEGER" />
+    <result column="b_name" property="bName" jdbcType="VARCHAR" />
+    <result column="b_count" property="bCount" jdbcType="INTEGER" />
+    <result column="b_img" property="bImg" jdbcType="VARCHAR" />
+    <result column="b_szm" property="bSzm" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    b_id, b_name, b_count, b_img, b_szm
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_car_brand
+    where b_id = #{bId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_car_brand
+    where b_id = #{bId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.keller.model.CarBrand" >
+    insert into t_car_brand (b_id, b_name, b_count, 
+      b_img, b_szm)
+    values (#{bId,jdbcType=INTEGER}, #{bName,jdbcType=VARCHAR}, #{bCount,jdbcType=INTEGER}, 
+      #{bImg,jdbcType=VARCHAR}, #{bSzm,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.keller.model.CarBrand" >
+    insert into t_car_brand
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        b_id,
+      </if>
+      <if test="bName != null" >
+        b_name,
+      </if>
+      <if test="bCount != null" >
+        b_count,
+      </if>
+      <if test="bImg != null" >
+        b_img,
+      </if>
+      <if test="bSzm != null" >
+        b_szm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bId != null" >
+        #{bId,jdbcType=INTEGER},
+      </if>
+      <if test="bName != null" >
+        #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bCount != null" >
+        #{bCount,jdbcType=INTEGER},
+      </if>
+      <if test="bImg != null" >
+        #{bImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bSzm != null" >
+        #{bSzm,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.keller.model.CarBrand" >
+    update t_car_brand
+    <set >
+      <if test="bName != null" >
+        b_name = #{bName,jdbcType=VARCHAR},
+      </if>
+      <if test="bCount != null" >
+        b_count = #{bCount,jdbcType=INTEGER},
+      </if>
+      <if test="bImg != null" >
+        b_img = #{bImg,jdbcType=VARCHAR},
+      </if>
+      <if test="bSzm != null" >
+        b_szm = #{bSzm,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.keller.model.CarBrand" >
+    update t_car_brand
+    set b_name = #{bName,jdbcType=VARCHAR},
+      b_count = #{bCount,jdbcType=INTEGER},
+      b_img = #{bImg,jdbcType=VARCHAR},
+      b_szm = #{bSzm,jdbcType=VARCHAR}
+    where b_id = #{bId,jdbcType=INTEGER}
+  </update>
+</mapper>

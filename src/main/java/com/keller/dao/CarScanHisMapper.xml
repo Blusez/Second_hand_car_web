@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.keller.dao.CarScanHisMapper">
+  <resultMap id="BaseResultMap" type="com.keller.model.CarScanHis">
+    <id column="s_id" jdbcType="INTEGER" property="sId" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="c_id" jdbcType="INTEGER" property="cId" />
+    <result column="time" jdbcType="VARCHAR" property="time" />
+    <result column="start1" jdbcType="INTEGER" property="start" />
+    <result column="limit1" jdbcType="INTEGER" property="limit" />
+    <result column="count" jdbcType="INTEGER" property="count" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    s_id, u_id, c_id, time, start1, limit1
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_car_scan_his
+    where s_id = #{sId,jdbcType=INTEGER}
+  </select>
+  <select id="selectByuId" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_car_scan_his
+    where u_id = #{uId,jdbcType=INTEGER}
+  </select>
+  
+  <select id="selectByWhatlike" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    c_id,count(*) as count
+    from t_car_scan_his
+    where u_id = #{uId,jdbcType=INTEGER} 
+    group by c_id having count>1 ORDER BY count  desc  LIMIT 0,4
+  </select>
+  
+  
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_car_scan_his
+    where s_id = #{sId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.keller.model.CarScanHis">
+    insert into t_car_scan_his (s_id, u_id, c_id, 
+      time, start1, limit1)
+    values (#{sId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{cId,jdbcType=INTEGER}, 
+      #{time,jdbcType=VARCHAR}, #{start,jdbcType=INTEGER}, #{limit,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.keller.model.CarScanHis">
+    insert into t_car_scan_his
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        s_id,
+      </if>
+      <if test="uId != null">
+        u_id,
+      </if>
+      <if test="cId != null">
+        c_id,
+      </if>
+      <if test="time != null">
+        time,
+      </if>
+      <if test="start != null">
+        start1,
+      </if>
+      <if test="limit != null">
+        limit1,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="sId != null">
+        #{sId,jdbcType=INTEGER},
+      </if>
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="start != null">
+        #{start,jdbcType=INTEGER},
+      </if>
+      <if test="limit != null">
+        #{limit,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.keller.model.CarScanHis">
+    update t_car_scan_his
+    <set>
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="cId != null">
+        c_id = #{cId,jdbcType=INTEGER},
+      </if>
+      <if test="time != null">
+        time = #{time,jdbcType=VARCHAR},
+      </if>
+      <if test="start != null">
+        start1 = #{start,jdbcType=INTEGER},
+      </if>
+      <if test="limit != null">
+        limit1 = #{limit,jdbcType=INTEGER},
+      </if>
+    </set>
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.keller.model.CarScanHis">
+    update t_car_scan_his
+    set u_id = #{uId,jdbcType=INTEGER},
+      c_id = #{cId,jdbcType=INTEGER},
+      time = #{time,jdbcType=VARCHAR},
+      start1 = #{start,jdbcType=INTEGER},
+      limit1 = #{limit,jdbcType=INTEGER}
+    where s_id = #{sId,jdbcType=INTEGER}
+  </update>
+  
+  
+</mapper>

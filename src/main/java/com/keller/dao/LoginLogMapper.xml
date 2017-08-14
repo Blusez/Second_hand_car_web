@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keller.dao.LoginLogMapper" >
+  <resultMap id="BaseResultMap" type="com.keller.model.LoginLog" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="Faccount" property="faccount" jdbcType="VARCHAR" />
+    <result column="FloginTime" property="flogintime" jdbcType="TIMESTAMP" />
+    <result column="FlogoutTime" property="flogouttime" jdbcType="TIMESTAMP" />
+    <result column="FregionId" property="fregionid" jdbcType="VARCHAR" />
+    <result column="FleagueName" property="fleaguename" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fid, Faccount, FloginTime, FlogoutTime, FregionId, FleagueName
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_loginlog
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_loginlog
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.keller.model.LoginLog" >
+    insert into t_loginlog (fid, Faccount, FloginTime, 
+      FlogoutTime, FregionId, FleagueName
+      )
+    values (#{fid,jdbcType=INTEGER}, #{faccount,jdbcType=VARCHAR}, #{flogintime,jdbcType=TIMESTAMP}, 
+      #{flogouttime,jdbcType=TIMESTAMP}, #{fregionid,jdbcType=VARCHAR}, #{fleaguename,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" useGeneratedKeys="true" keyProperty="fid" parameterType="com.keller.model.LoginLog" >
+    insert into t_loginlog
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="faccount != null" >
+        Faccount,
+      </if>
+      <if test="flogintime != null" >
+        FloginTime,
+      </if>
+      <if test="flogouttime != null" >
+        FlogoutTime,
+      </if>
+      <if test="fregionid != null" >
+        FregionId,
+      </if>
+      <if test="fleaguename != null" >
+        FleagueName,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="faccount != null" >
+        #{faccount,jdbcType=VARCHAR},
+      </if>
+      <if test="flogintime != null" >
+        #{flogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flogouttime != null" >
+        #{flogouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fregionid != null" >
+        #{fregionid,jdbcType=VARCHAR},
+      </if>
+      <if test="fleaguename != null" >
+        #{fleaguename,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.keller.model.LoginLog" >
+    update t_loginlog
+    <set >
+      <if test="faccount != null" >
+        Faccount = #{faccount,jdbcType=VARCHAR},
+      </if>
+      <if test="flogintime != null" >
+        FloginTime = #{flogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="flogouttime != null" >
+        FlogoutTime = #{flogouttime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="fregionid != null" >
+        FregionId = #{fregionid,jdbcType=VARCHAR},
+      </if>
+      <if test="fleaguename != null" >
+        FleagueName = #{fleaguename,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.keller.model.LoginLog" >
+    update t_loginlog
+    set Faccount = #{faccount,jdbcType=VARCHAR},
+      FloginTime = #{flogintime,jdbcType=TIMESTAMP},
+      FlogoutTime = #{flogouttime,jdbcType=TIMESTAMP},
+      FregionId = #{fregionid,jdbcType=VARCHAR},
+      FleagueName = #{fleaguename,jdbcType=VARCHAR}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+</mapper>

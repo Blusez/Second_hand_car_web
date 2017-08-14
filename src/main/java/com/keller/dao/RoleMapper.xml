@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.keller.dao.RoleMapper" >
+  <resultMap id="BaseResultMap" type="com.keller.model.Role" >
+    <id column="r_id" property="rId" jdbcType="INTEGER" />
+    <result column="r_rolename" property="rRolename" jdbcType="VARCHAR" />
+    <result column="r_des" property="rDes" jdbcType="VARCHAR" />
+    <result column="r_res" property="rRes" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    r_id, r_rolename, r_des, r_res
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from t_role
+    where r_id = #{rId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.keller.model.Role" >
+    insert into t_role (r_id, r_rolename, r_des, 
+      r_res)
+    values (#{rId,jdbcType=INTEGER}, #{rRolename,jdbcType=VARCHAR}, #{rDes,jdbcType=VARCHAR}, 
+      #{rRes,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.keller.model.Role" >
+    insert into t_role
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        r_id,
+      </if>
+      <if test="rRolename != null" >
+        r_rolename,
+      </if>
+      <if test="rDes != null" >
+        r_des,
+      </if>
+      <if test="rRes != null" >
+        r_res,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="rId != null" >
+        #{rId,jdbcType=INTEGER},
+      </if>
+      <if test="rRolename != null" >
+        #{rRolename,jdbcType=VARCHAR},
+      </if>
+      <if test="rDes != null" >
+        #{rDes,jdbcType=VARCHAR},
+      </if>
+      <if test="rRes != null" >
+        #{rRes,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.keller.model.Role" >
+    update t_role
+    <set >
+      <if test="rRolename != null" >
+        r_rolename = #{rRolename,jdbcType=VARCHAR},
+      </if>
+      <if test="rDes != null" >
+        r_des = #{rDes,jdbcType=VARCHAR},
+      </if>
+      <if test="rRes != null" >
+        r_res = #{rRes,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.keller.model.Role" >
+    update t_role
+    set r_rolename = #{rRolename,jdbcType=VARCHAR},
+      r_des = #{rDes,jdbcType=VARCHAR},
+      r_res = #{rRes,jdbcType=VARCHAR}
+    where r_id = #{rId,jdbcType=INTEGER}
+  </update>
+</mapper>
